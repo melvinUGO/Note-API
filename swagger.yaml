@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Notes API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://note-api-sxhg.onrender.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RegisterRequest"
+                - example:
+                    name: Melvin
+                    email: melvin9@gmail.com
+                    password: password
+            example:
+              name: Melvin
+              email: melvin9@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LoginRequest"
+                - example:
+                    email: melvin2@gmail.com
+                    password: password
+            example:
+              email: melvin2@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /note:
+    post:
+      tags:
+        - notes
+      summary: create note
+      operationId: createnote
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/createnoterequest"
+                - example:
+                    folder: pie
+                    note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+            example:
+              folder: pie
+              note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - notes
+      summary: Get all Notes
+      operationId: GetallNotes
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /note/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The note ID
+    get:
+      tags:
+        - notes
+      summary: Get note
+      operationId: Getnote
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - notes
+      summary: Update Note
+      operationId: UpdateNote
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateNoteRequest"
+                - example:
+                    folder: banana2
+                    note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+            example:
+              folder: banana2
+              note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - notes
+      summary: Delete Note
+      operationId: DeleteNote
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Melvin
+        email: melvin9@gmail.com
+        password: password
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: melvin2@gmail.com
+        password: password
+    createnoterequest:
+      title: createnoterequest
+      required:
+        - folder
+        - note
+      type: object
+      properties:
+        folder:
+          type: string
+        note:
+          type: string
+      example:
+        folder: pie
+        note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+    UpdateNoteRequest:
+      title: UpdateNoteRequest
+      required:
+        - folder
+        - note
+      type: object
+      properties:
+        folder:
+          type: string
+        note:
+          type: string
+      example:
+        folder: banana2
+        note: kdonfndnfsnvndnkdknkd keowfefwkofkowekfkefke
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: notes
+    description: ""
